@@ -1,12 +1,17 @@
-import React from "react"
+import React, { useContext } from "react"
 import { BiCartAlt } from "react-icons/bi"
 import propTypes from "prop-types"
 import "./ProductCard.css"
 import formatCurrency from "../../utils/formatCurrency"
+import AppContext from "../../context/AppContext"
 
 
 function ProductCard({ data }) {
   const { title, thumbnail, price } = data
+
+  const { cartItems, setCartItems} = useContext(AppContext)
+
+  const handleAddCart = () => setCartItems([ ...cartItems, data ])
 
   return (
     <section className="product-card">
@@ -17,7 +22,14 @@ function ProductCard({ data }) {
         
       </div>
 
-      <button type="button" className="button__add-cart"><BiCartAlt/></button>
+      <button 
+        type="button" 
+        className="button__add-cart"
+        onClick={ handleAddCart }
+      >
+        
+        <BiCartAlt/>
+      </button>
 
     </section>
   )
